@@ -10,7 +10,7 @@ function setup() {
 	createCanvas(screenWidth, screenHeight);
 	var cX = screenWidth/2; var cY = screenHeight/2;
 	pistil.push(dot(cX, cY, dotSize, 0.05));
-	var dotCount = 8;
+	var dotCount = 10;
 	var radius = dotSize ;
 	// place the outter dots equidistant around the circle
 	for(var i = 0; i < dotCount; i++) {
@@ -28,7 +28,6 @@ function setup() {
 	    var y2 = cY + (petalLength+petalRadius) * Math.sin(2 * Math.PI * i / petalCount);
 		petals.push(petal(x1, y1, x2, y2));
 	}
-
 }
 
 function draw() {
@@ -69,22 +68,3 @@ function petal(x1, y1, x2, y2){
 	}
 
 }
-
-function triangle(_centerX, _centerY, _maxSize, _growRate){
-	var innerSize = 0;
-	var centerX = _centerX;
-	var centerY = _centerY;
-	var maxCircleSize = _maxSize;
-	var growRate = _growRate;
-	return {
-		draw: function(){
-		    fill(255, 204, 0);
-			noStroke();
-			ellipse(centerX, centerY, maxCircleSize, maxCircleSize)
-			fill(0,0,0)
-			innerSize = (innerSize + growRate) % maxCircleSize; 
-			ellipse(centerX, centerY, innerSize, innerSize) // growing just the x or y is pretty neat
-			}
-		}
-}
-
