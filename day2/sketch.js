@@ -10,6 +10,7 @@ var count = 0;
 function setup() {
   // put setup code here
   createCanvas(screenWidth, screenHeight);
+  angleMode(DEGREES);
 }
 
 
@@ -18,7 +19,7 @@ function draw() {
   // smaller edging back to the horizon?
   // They can sprout and grow
   // When you click one it shoots a seed out and sprouts and grows
-
+  clear();
   flowers.forEach(function (f) {
     f.draw();
   });
@@ -45,11 +46,8 @@ function newFlower(_cX, _cY, _height){
   var petalLength = dotSize * 2;
   var petalRadius = dotSize * 2;
   for (var i = 0; i < petalCount; i++) {
-    var x1 = cX + petalRadius * Math.cos(2 * Math.PI * i / petalCount);
-    var y1 = cY + petalRadius * Math.sin(2 * Math.PI * i / petalCount);
-    var x2 = cX + (petalLength + petalRadius) * Math.cos(2 * Math.PI * i / petalCount);
-    var y2 = cY + (petalLength + petalRadius) * Math.sin(2 * Math.PI * i / petalCount);
-    petals.push(petal(x1, y1, x2, y2, cX, cY, color, petalRadius, petalLength));
+    var angle = i * (360 / petalCount);
+    petals.push(petal(angle, cX, cY, color, petalRadius, petalLength));
   }
   return {
     draw: function(){
@@ -81,7 +79,7 @@ function dot(_centerX, _centerY, _maxSize, _growRate){
   // add random amount 
   return {
     draw: function(){
-        fill(255, 204, 0);
+      fill(255, 204, 0);
       noStroke();
       ellipse(centerX, centerY, maxCircleSize, maxCircleSize);
       fill(0, 0, 0)
@@ -94,12 +92,12 @@ function dot(_centerX, _centerY, _maxSize, _growRate){
     }
 }
 
-function petal(x1, y1, x2, y2, cX, cY, color, petalRadius, petalLength){
-  var x1 = x1; var y1 = y1; var y2 = y2; var petalRadius = petalRadius;
+function petal(angle, cX, cY, color, petalRadius, petalLength){
+  var petalRadius = petalRadius;
   var outerRadius = petalRadius + petalLength;
   var petalLength = petalLength; var cX = cX; var cY = cY;
   var rate = 0.01;
-  var angle = 0;
+  var angle = angle;
   return {
         draw: function(){
         angle += rate;
