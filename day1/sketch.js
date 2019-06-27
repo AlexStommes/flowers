@@ -26,7 +26,7 @@ function setup() {
 	    var y1 = cY + petalRadius * Math.sin(2 * Math.PI * i / petalCount);   
 		var x2 = cX + (petalLength+petalRadius) * Math.cos(2 * Math.PI * i / petalCount);
 	    var y2 = cY + (petalLength+petalRadius) * Math.sin(2 * Math.PI * i / petalCount);
-		petals.push(petal(x1, y1, x2, y2));
+		petals.push(petal(x1, y1, x2, y2, cX, cY));
 	}
 }
 
@@ -57,12 +57,17 @@ function dot(_centerX, _centerY, _maxSize, _growRate){
 		}
 }
 
-function petal(x1, y1, x2, y2){
+function petal(x1, y1, x2, y2, cX, cY){
 	var x1 = x1; var y1 = y1; var y2 = y2;
+	var cX = cX; var cY = cY;
+	var rotationalAngle = 0; 
 	return {
 			draw: function(){
+				rotationalAngle  = rotationalAngle % 360;
 				stroke(128,0,128);
 				strokeWeight(10);
+				//translate(cX, cY)
+				//rotate(rotationalAngle++)
 				line(x1, y1, x2, y2);
 			}
 	}
