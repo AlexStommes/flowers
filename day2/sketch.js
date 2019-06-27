@@ -1,8 +1,6 @@
 var screenWidth = 1920;
 var screenHeight = 1280;
 var dotSize = 30;
-var pistil = []; 
-var petals = [];
 var growRate = dotSize;
 var flowers = [];
 var count = 0;
@@ -27,7 +25,7 @@ function draw() {
 
 function newFlower(_cX, _cY, _height){
   var cX = _cX; var cY = _cY; var height = _height;
-  var pistils = [];
+  var pistils = []; var petals = [];
   var dotCount = Math.round(random(3, 12));
   var petalCount = Math.round(random(3, 12));
   var radius = dotSize;
@@ -63,6 +61,9 @@ function newFlower(_cX, _cY, _height){
 
 function mouseClicked() {
   flowers.push(new newFlower(mouseX, mouseY, 15));
+  if (flowers.length > 20) {
+    flowers.shift();
+  }
 }
 
 
