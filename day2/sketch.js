@@ -1,5 +1,5 @@
-var screenWidth = 640;
-var screenHeight = 480;
+var screenWidth = 1920;
+var screenHeight = 1280;
 var dotSize = 30;
 var pistil = []; 
 var petals = [];
@@ -49,7 +49,7 @@ function newFlower(_cX, _cY, _height){
     var y1 = cY + petalRadius * Math.sin(2 * Math.PI * i / petalCount);
     var x2 = cX + (petalLength + petalRadius) * Math.cos(2 * Math.PI * i / petalCount);
     var y2 = cY + (petalLength + petalRadius) * Math.sin(2 * Math.PI * i / petalCount);
-    petals.push(petal(x1, y1, x2, y2, cX, cY, color));
+    petals.push(petal(x1, y1, x2, y2, cX, cY, color, petalRadius, petalLength));
   }
   return {
     draw: function(){
@@ -94,17 +94,22 @@ function dot(_centerX, _centerY, _maxSize, _growRate){
     }
 }
 
-function petal(x1, y1, x2, y2, cX, cY, color){
-  var x1 = x1; var y1 = y1; var y2 = y2;
-  var cX = cX; var cY = cY;
-  var rotationalAngle = 0; 
+function petal(x1, y1, x2, y2, cX, cY, color, petalRadius, petalLength){
+  var x1 = x1; var y1 = y1; var y2 = y2; var petalRadius = petalRadius;
+  var outerRadius = petalRadius + petalLength;
+  var petalLength = petalLength; var cX = cX; var cY = cY;
+  var rate = 0.01;
+  var angle = 0;
   return {
-      draw: function(){
-        rotationalAngle  = rotationalAngle % 360;
+        draw: function(){
+        angle += rate;
+        //angle = angle % 360; test later
+        var x1 = cX + sin(angle) * petalRadius; 
+        var y1 = cY + cos(angle) * petalRadius; 
+        var x2 = cX + sin(angle) * outerRadius;
+        var y2 = cY + cos(angle) * outerRadius;
         stroke(color.r, color.g, color.b);
         strokeWeight(10);
-        //translate(cX, cY)
-        //rotate(rotationalAngle++)
         line(x1, y1, x2, y2);
       }
   }
